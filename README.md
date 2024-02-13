@@ -1,3 +1,5 @@
+<img src="./UrlShortener.gif" alt="Short demo">
+
 # URL Shortener
 
 URL Shortener is a web application that allows users to create shortened versions of long URLs, making them easier to share and manage.
@@ -33,4 +35,3 @@ URL Shortener is a web application that allows users to create shortened version
 ## Author
 
 Venaxin(https://github.com/venaxin)
-

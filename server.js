@@ -6,7 +6,7 @@ const app = express();
 
 mongoose.connect("mongodb://localhost/urlShortener", {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
 });
 
 app.set("view engine", "ejs");
@@ -29,6 +29,29 @@ app.post("/shortUrls", async (req, res) => {
     res.redirect("/");
   } catch (error) {
     console.error("Error creating short URL:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+app.post("/clearDatabase", async (req, res) => {
+  try {
+    await ShortUrl.deleteMany({});
+    res.redirect("/");
+  } catch (error) {
+    console.error("Error clearing database:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+app.post("/deleteShortUrl/:id", async (req, res) => {
+  try {
+    const deletedShortUrl = await ShortUrl.findByIdAndDelete(req.params.id);
+    if (!deletedShortUrl) {
+      return res.status(404).send("Short URL not found");
+    }
+    res.redirect("/");
+  } catch (error) {
+    console.error("Error deleting short URL:", error);
     res.status(500).send("Internal Server Error");
   }
 });
